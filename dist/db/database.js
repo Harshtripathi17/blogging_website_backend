@@ -11,14 +11,20 @@ const database = process.env.DATABASE;
 const username = process.env.USER_NAME;
 const password = process.env.PASSWORD;
 const host = process.env.HOST;
-const sequelize = new sequelize_typescript_1.Sequelize({
-    database: database,
-    username: username,
-    password: password,
-    host: host,
-    port: 5432,
-    dialect: "postgres",
-});
+let sequelize;
+if (process.env.DB_URL) {
+    sequelize = new sequelize_typescript_1.Sequelize(process.env.DB_URL);
+}
+else {
+    sequelize = new sequelize_typescript_1.Sequelize({
+        database: database,
+        username: username,
+        password: password,
+        host: host,
+        port: 5432,
+        dialect: "postgres",
+    });
+}
 sequelize
     .authenticate()
     .then(() => {

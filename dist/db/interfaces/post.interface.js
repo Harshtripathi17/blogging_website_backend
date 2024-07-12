@@ -8,6 +8,9 @@ exports.Post = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../database"));
 class Post extends sequelize_1.Model {
+    map(arg0) {
+        throw new Error("Method not implemented.");
+    }
 }
 exports.Post = Post;
 Post.init({
@@ -36,10 +39,10 @@ Post.init({
         type: sequelize_1.DataTypes.STRING,
     },
     summary: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.TEXT,
     },
     content: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.TEXT,
     },
     cover_image: {
         type: sequelize_1.DataTypes.STRING,

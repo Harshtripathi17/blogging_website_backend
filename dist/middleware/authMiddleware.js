@@ -14,51 +14,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const author_interface_1 = require("../db/interfaces/author.interface");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const secretKey = process.env.SECRETKEY;
+const secretKey = process.env.SECRET_KEY;
 function authenticateToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         try {
-            const authHeader = req.headers["authorization"];
-            console.log("-------------------USING MIDDLEWARE STARTING----------------------------------");
-            console.log("authheader - ", authHeader);
-            const token = authHeader && authHeader.split(" ")[1];
-            console.log("\ntoken-", token);
+            const token = (_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
             if (!token) {
-                console.log("token does not exist");
-                return res.sendStatus(401); // unauthorized
+                return res.sendStatus(401); // Unauthorized
             }
-            jsonwebtoken_1.default.verify(token, secretKey, (error, user) => __awaiter(this, void 0, void 0, function* () {
-                if (error) {
-                    if (error.name === "TokenExpiredError") {
-                        console.log("expiration of token");
+            jsonwebtoken_1.default.verify(token, secretKey, (err, user) => {
+                if (err) {
+                    if (err.name === "TokenExpiredError") {
                         return res.status(401).json({ message: "Token Expired" });
                     }
-                    return res.status(401).json({ error });
-                }
-                // check if the user exists in the database
-                const row = yield author_interface_1.Author.findOne({
-                    where: {
-                        id: user.id,
-                    },
-                });
-                console.log("2:id=", user.id, "row:", row);
-                if (!row) {
-                    console.log("user does not exist");
-                    return res.status(401).json({ message: "User does not exist" });
+                    return res.status(401).json({ message: "Unauthorized" });
                 }
                 req.user = {
                     email: user.email,
                     id: user.id,
                 };
-                console.log("--------------------------MIDDLEWARE ENDED-------------------------------");
                 next();
-            }));
+            });
         }
         catch (error) {
-            console.log("error is:", error);
             return res.status(500).json({ message: "Internal Server Error" });
         }
     });

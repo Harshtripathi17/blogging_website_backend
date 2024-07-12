@@ -33,7 +33,7 @@ Author.init({
         type: sequelize_1.DataTypes.STRING,
     },
     phone: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.BIGINT,
     },
     profile_picture: {
         type: sequelize_1.DataTypes.STRING,
@@ -51,7 +51,7 @@ Author.init({
         allowNull: true,
     },
     bio: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.TEXT,
     },
     password: {
         type: sequelize_1.DataTypes.STRING,

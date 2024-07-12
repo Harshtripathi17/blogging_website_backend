@@ -23,7 +23,7 @@ app.use((0, cookie_parser_1.default)());
 app.use("/", author_route_1.default);
 // ! posting
 app.use("/", blog_post_route_1.default);
-const port = 4000;
+const port = process.env.BACKEND_PORT_NUMBER || 4000;
 app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+    console.log(`[server]: Server is running`);
 });
