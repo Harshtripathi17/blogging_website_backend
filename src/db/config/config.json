@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "harsh",
+    "database": "blog_website",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "harsh",
+    "database": "blog_website",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "harsh",
+    "database": "blog_website",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
